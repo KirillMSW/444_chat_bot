@@ -47,12 +47,18 @@ for event in LONGPOLL.listen():
                 write_msg(event.user_id, "Всё хорошо")
             elif (request == "Обновить")and(event.user_id == 271296808):
                 msg = VK.method('messages.getById', {'message_ids': event.message_id})
-                photo_url = (msg['items'][0]['attachments'][0]['photo']['sizes'][4]['url'])
-                req = urllib.request.urlopen(photo_url)
-                arr = numpy.asarray(bytearray(req.read()), dtype=numpy.uint8)
-                img = cv2.imdecode(arr, -1)
-                cv2.imwrite('schedule_changes.jpg', img)
-                write_msg(event.user_id, 'Замены успешно обновлены')
+                if(msg['items'][0]['attachments']):
+                    if(msg['items'][0]['attachments'][0]['type']=='photo'):
+                        photo_url = (msg['items'][0]['attachments'][0]['photo']['sizes'][4]['url'])
+                        req = urllib.request.urlopen(photo_url)
+                        arr = numpy.asarray(bytearray(req.read()), dtype=numpy.uint8)
+                        img = cv2.imdecode(arr, -1)
+                        cv2.imwrite('schedule_changes.jpg', img)
+                        write_msg(event.user_id, 'Замены успешно обновлены')
+                    else:
+                        write_msg(event.user_id, "Вы не прикрепили фото")
+                else:
+                    write_msg(event.user_id, "Вы не прикрепили фото")
             elif request == 'Начать':
                 keyboard_json=json.dumps({
                               "one_time": False,
@@ -72,5 +78,6 @@ for event in LONGPOLL.listen():
                 VK.method('messages.send',
                           {'user_id': event.user_id, 'random_id': get_random_id(), 'keyboard': keyboard_json ,
                            'message': 'Очищено'})
+
             else:
                 write_msg(event.user_id, "Не понял вашего ответа...")
