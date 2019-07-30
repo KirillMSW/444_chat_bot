@@ -237,22 +237,25 @@ try:
                             hub(event.user_id,'Неверная команда.')
                             continue
                         try:
+                            if request == 'Обновлять замены':
+                                write_msg(previous_req_data,
+                                          'Теперь вы можете обновлять замены',
+                                          admin_keyboard_1lvl)
+
+                            elif request == 'Обновлять замены, управлять админами':
+                                write_msg(previous_req_data,
+                                          'Теперь вы можете обновлять замены, а так же назначать и разжаловать админов',
+                                          admin_keyboard_2lvl)
+
                             cursor.execute("INSERT INTO admins(user_id,access_level,user_name) VALUES (?,?,?)", new_admin)
                             conn.commit()
                             hub(event.user_id,'Успешно')
-                            if request == 'Обновлять замены':
-                                VK.method('messages.send',
-                                          {'user_id': previous_req_data, 'random_id': get_random_id(),
-                                           'keyboard': admin_keyboard_1lvl, 'message': 'Теперь вы можете обновлять замены'
-                                           })
-                            elif request == 'Обновлять замены, управлять админами':
-                                VK.method('messages.send',
-                                          {'user_id': previous_req_data, 'random_id': get_random_id(),
-                                           'keyboard': admin_keyboard_2lvl,
-                                           'message': 'Теперь вы можете обновлять замены, а так же назначать и разжаловать админов'
-                                           })
+
                         except sqlite3.IntegrityError:
                             hub(event.user_id,'Пользователь уже админ')
+
+                        except vk_api.exceptions.ApiError:
+                            hub(event.user_id,'Пользователь не может быть назначен админом, так как еще не писал боту')
 
                     elif (previous_req['request_id']=='delete_admin_1'):
                         if request.isdigit():
