@@ -189,8 +189,9 @@ def hub(user_id, message):
         write_msg(user_id, message, admin_keyboard_2lvl)
 
 
-try:
-    for event in LONGPOLL.listen():
+
+for event in LONGPOLL.listen():
+    try:
         if event.type == VkEventType.MESSAGE_NEW:
             if event.to_me:
                 msg = VK.method('messages.getById', {'message_ids': event.message_id})
@@ -225,6 +226,8 @@ try:
                             hub(event.user_id,'Неверная ссылка')
                         except sqlite3.IntegrityError:
                             hub(event.user_id, 'Пользователь уже админ')
+                        except vk_api.exceptions.ApiError:
+                            hub(event.user_id, 'Неверная ссылка')
 
                     elif previous_req['request_id'] == 'add_admin_2':
                         previous_req_data = previous_req['data']
@@ -330,5 +333,5 @@ try:
                 else:
                     hub(event.user_id, "Не понял вашего ответа...")
 
-except Exception:
-    logger.exception('Error')
+    except Exception:
+        logger.exception('Error')
