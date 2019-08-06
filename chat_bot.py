@@ -13,8 +13,9 @@ import logging
 import sqlite3
 import os
 
-
-TOKEN = "08275b5e7122103670cb8da5d73e5287b968f93cfc7101233993f1516bef6cc6279445bba32d1f9e1a96c"
+token_file=open('token.txt')
+TOKEN = token_file.read()
+token_file.close()
 
 VK = vk_api.VkApi(token=TOKEN)
 
@@ -240,6 +241,7 @@ for event in LONGPOLL.listen():
                             hub(event.user_id,'Неверная команда.')
                             continue
                         try:
+                            cursor.execute("INSERT INTO admins(user_id,access_level,user_name) VALUES (?,?,?)", new_admin)
                             if request == 'Обновлять замены':
                                 write_msg(previous_req_data,
                                           'Теперь вы можете обновлять замены',
@@ -249,8 +251,6 @@ for event in LONGPOLL.listen():
                                 write_msg(previous_req_data,
                                           'Теперь вы можете обновлять замены, а так же назначать и разжаловать админов',
                                           admin_keyboard_2lvl)
-
-                            cursor.execute("INSERT INTO admins(user_id,access_level,user_name) VALUES (?,?,?)", new_admin)
                             conn.commit()
                             hub(event.user_id,'Успешно')
 
@@ -259,6 +259,8 @@ for event in LONGPOLL.listen():
 
                         except vk_api.exceptions.ApiError:
                             hub(event.user_id,'Пользователь не может быть назначен админом, так как еще не писал боту')
+                            cursor.execute("DELETE FROM admins WHERE user_id=(?)",
+                                           (previous_req_data,))
 
                     elif (previous_req['request_id']=='delete_admin_1'):
                         if request.isdigit():
