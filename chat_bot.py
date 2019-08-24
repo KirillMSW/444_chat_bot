@@ -16,6 +16,8 @@ import os
 
 token_file=open('token.txt')
 TOKEN = token_file.read()
+if '\n' in TOKEN:
+    TOKEN = TOKEN[:-1]
 token_file.close()
 
 VK = vk_api.VkApi(token=TOKEN)
