@@ -1,4 +1,5 @@
 import urllib
+import time
 from petrovich.main import Petrovich
 from petrovich.enums import Case
 import json
@@ -189,7 +190,7 @@ def hub(user_id, message):
     elif lvl >=2:
         write_msg(user_id, message, admin_keyboard_2lvl)
 
-
+logger.log(logging.INFO,'Start: '+time.ctime())
 
 for event in LONGPOLL.listen():
     try:
@@ -337,3 +338,4 @@ for event in LONGPOLL.listen():
 
     except Exception:
         logger.exception('Error')
+logger.log(logging.INFO,'Finish: '+time.ctime())
