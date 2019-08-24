@@ -1,0 +1,5 @@
+Petrovich==1.0.0
+vk_api==11.4.0
+numpy==1.16.2
+requests==2.18.4
+opencv_python==4.1.0.25
