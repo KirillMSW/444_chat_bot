@@ -44,6 +44,13 @@ regular_keyboard=json.dumps({
                                 "label": "Замены"
                                 },
                                 "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Календарь учебного года"
+                                },
+                                "color": "primary"
                             }]
                             ]},ensure_ascii=False)
 
@@ -53,14 +60,21 @@ admin_keyboard_1lvl=json.dumps({
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "Обновить замены"
+                                "label": "Замены"
                                 },
                                 "color": "primary"
                             }],
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "Замены"
+                                "label": "Календарь учебного года"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Обновить замены"
                                 },
                                 "color": "primary"
                             }]
@@ -72,14 +86,21 @@ admin_keyboard_2lvl=json.dumps({
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "Обновить замены"
+                                "label": "Замены"
                                 },
                                 "color": "primary"
                             }],
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "Замены"
+                                "label": "Календарь учебного года"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Обновить замены"
                                 },
                                 "color": "primary"
                             }],
@@ -162,6 +183,45 @@ yes_or_no_keyboard=json.dumps({
                             }]
                             ]},ensure_ascii=False)
 
+seasons=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Осень"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Зима"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Весна"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Лето"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)
 
 
 def write_msg(user_id, message,keyboard=regular_keyboard):
@@ -182,6 +242,15 @@ def get_admin_level(user_id):
         return d[1]
     else:
         return 0
+
+def get_main_menu_keyboard(user_id):
+    lvl = get_admin_level(user_id)
+    if lvl == 0:
+        return regular_keyboard
+    elif lvl == 1:
+        return admin_keyboard_1lvl
+    elif lvl >= 2:
+        return admin_keyboard_2lvl
 
 def hub(user_id, message):
     lvl=get_admin_level(user_id)
@@ -297,6 +366,30 @@ for event in LONGPOLL.listen():
                         else:
                             hub(event.user_id,'Неверная команда')
 
+                    elif previous_req['request_id'] == 'calendar':
+                        correct_season=1
+                        if request ==  'Осень':
+                            image_name='calendar_fall.jpg'
+                        elif request == 'Зима':
+                            image_name = 'calendar_winter.jpg'
+                        elif request == 'Весна':
+                            image_name = 'calendar_spring.jpg'
+                        elif request == 'Лето':
+                            image_name = 'calendar_summer.jpg'
+                        else:
+                            hub(event.user_id,'Неверная команда')
+                            correct_season=0
+                        if correct_season:
+                            upload_url = VK.method('photos.getMessagesUploadServer')
+                            photo_to_upload = open('calendar/'+image_name, 'rb')
+                            response = requests.post(upload_url['upload_url'],
+                                                     files={'photo': photo_to_upload}).json()
+                            saved_photo = VK.method('photos.saveMessagesPhoto',
+                                                    {'photo': response['photo'], 'server': response['server'],
+                                                     'hash': response['hash']})[0]
+                            photo_info = 'photo{}_{}'.format(saved_photo['owner_id'], saved_photo['id'])
+                            VK.method('messages.send', {'user_id': event.user_id, 'random_id': get_random_id(),
+                                                        'attachment': photo_info,'keyboard':get_main_menu_keyboard(event.user_id)})
 
                 elif request == "Замены":
                     upload_url = VK.method('photos.getMessagesUploadServer')
@@ -334,6 +427,10 @@ for event in LONGPOLL.listen():
                         mes += str(i+1)+': ' + '[id'+str(a[i][0])+'|'+a[i][2]+']\n'
                     write_msg(event.user_id,mes,menu_button)
                     composite_req_dict[event.user_id] = {'request_id':'delete_admin_1','data':a}
+
+                elif request  == 'Календарь учебного года':
+                    write_msg(event.user_id, 'Выбери время года', seasons)
+                    composite_req_dict[event.user_id] = {'request_id': 'calendar'}
 
                 else:
                     hub(event.user_id, "Не понял вашего ответа...")
