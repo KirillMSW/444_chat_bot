@@ -1,4 +1,5 @@
 import urllib
+import keyboards
 import time
 from petrovich.main import Petrovich
 from petrovich.enums import Case
@@ -33,198 +34,7 @@ cursor = conn.cursor()
 
 composite_req_dict = {}
 
-empty_keyboad = json.dumps({"buttons":[],"one_time":True})
-
-regular_keyboard=json.dumps({
-                            "one_time": False,
-                            "buttons": [
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Замены"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Календарь учебного года"
-                                },
-                                "color": "primary"
-                            }]
-                            ]},ensure_ascii=False)
-
-admin_keyboard_1lvl=json.dumps({
-                            "one_time": False,
-                            "buttons": [
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Замены"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Календарь учебного года"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Обновить замены"
-                                },
-                                "color": "primary"
-                            }]
-                            ]},ensure_ascii=False)
-
-admin_keyboard_2lvl=json.dumps({
-                            "one_time": False,
-                            "buttons": [
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Замены"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Календарь учебного года"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Обновить замены"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Добавить админа"
-                                },
-                                "color": "positive"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Разжаловать админа"
-                                },
-                                "color": "negative"
-                            }]
-                            ]},ensure_ascii=False)
-authorities=json.dumps({
-                            "one_time": False,
-                            "buttons": [
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Обновлять замены"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Обновлять замены, управлять админами"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Главное меню"
-                                },
-                                "color": "secondary"
-                            }]
-                            ]},ensure_ascii=False)
-
-menu_button=json.dumps({
-                            "one_time": False,
-                            "buttons": [
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Главное меню"
-                                },
-                                "color": "secondary"
-                            }]
-                            ]},ensure_ascii=False)
-
-yes_or_no_keyboard=json.dumps({
-                            "one_time": False,
-                            "buttons": [
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Да"
-                                },
-                                "color": "positive"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Нет"
-                                },
-                                "color": "negative"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Главное меню"
-                                },
-                                "color": "secondary"
-                            }]
-                            ]},ensure_ascii=False)
-
-seasons=json.dumps({
-                            "one_time": False,
-                            "buttons": [
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Осень"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Зима"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Весна"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Лето"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Главное меню"
-                                },
-                                "color": "secondary"
-                            }]
-                            ]},ensure_ascii=False)
-
-
-def write_msg(user_id, message,keyboard=regular_keyboard):
+def write_msg(user_id, message,keyboard=keyboards.regular_keyboard):
     '''
     Sends text message to user
     :param user_id:
@@ -246,20 +56,20 @@ def get_admin_level(user_id):
 def get_main_menu_keyboard(user_id):
     lvl = get_admin_level(user_id)
     if lvl == 0:
-        return regular_keyboard
+        return keyboards.regular_keyboard
     elif lvl == 1:
-        return admin_keyboard_1lvl
+        return keyboards.admin_keyboard_1lvl
     elif lvl >= 2:
-        return admin_keyboard_2lvl
+        return keyboards.admin_keyboard_2lvl
 
 def hub(user_id, message):
     lvl=get_admin_level(user_id)
     if lvl == 0:
-        write_msg(user_id,message,regular_keyboard)
+        write_msg(user_id,message,keyboards.regular_keyboard)
     elif lvl == 1:
-        write_msg(user_id,message,admin_keyboard_1lvl)
+        write_msg(user_id,message,keyboards.admin_keyboard_1lvl)
     elif lvl >=2:
-        write_msg(user_id, message, admin_keyboard_2lvl)
+        write_msg(user_id, message, keyboards.admin_keyboard_2lvl)
 
 logger.log(logging.INFO,'Start: '+time.ctime())
 
@@ -294,7 +104,7 @@ for event in LONGPOLL.listen():
                         try:
                             a = request.split('/')
                             composite_req_dict[event.user_id] = {'request_id': 'add_admin_2','data':str(VK.method('users.get',{'user_ids': a[3]})[0]['id'])}
-                            write_msg(event.user_id,'Выберите полномочия нового админа',authorities)
+                            write_msg(event.user_id,'Выберите полномочия нового админа',keyboards.authorities)
                         except IndexError:
                             hub(event.user_id,'Неверная ссылка')
                         except sqlite3.IntegrityError:
@@ -317,12 +127,12 @@ for event in LONGPOLL.listen():
                             if request == 'Обновлять замены':
                                 write_msg(previous_req_data,
                                           'Теперь вы можете обновлять замены',
-                                          admin_keyboard_1lvl)
+                                          keyboards.admin_keyboard_1lvl)
 
                             elif request == 'Обновлять замены, управлять админами':
                                 write_msg(previous_req_data,
                                           'Теперь вы можете обновлять замены, а так же назначать и разжаловать админов',
-                                          admin_keyboard_2lvl)
+                                          keyboards.admin_keyboard_2lvl)
                             conn.commit()
                             hub(event.user_id,'Успешно')
 
@@ -342,7 +152,7 @@ for event in LONGPOLL.listen():
 
                                 persuaded_name = petr.firstname(name[0], Case.ACCUSATIVE) + ' ' + petr.lastname(name[1], Case.ACCUSATIVE)
                                 msg = 'Вы уверены что хотите разжаловать ' + '[id'+str(previous_req['data'][int(request)-1][0])+'|'+persuaded_name+']?'
-                                write_msg(event.user_id,msg,yes_or_no_keyboard)
+                                write_msg(event.user_id,msg,keyboards.yes_or_no_keyboard)
                                 composite_req_dict[event.user_id] = {'request_id': 'delete_admin_2', 'data':previous_req['data'][int(request)-1][0] }
                             else:
                                 hub(event.user_id,'Неверный номер админа')
@@ -355,7 +165,7 @@ for event in LONGPOLL.listen():
                                 if get_admin_level(event.user_id)>= get_admin_level(previous_req['data']):
                                     cursor.execute("DELETE FROM admins WHERE user_id=(?)",(previous_req['data'],))
                                     conn.commit()
-                                    write_msg(previous_req['data'],'Вы больше не админ',regular_keyboard)
+                                    write_msg(previous_req['data'],'Вы больше не админ',keyboards.regular_keyboard)
                                     hub(event.user_id,'Админ успешно разжалован')
                                 else:
                                     hub(event.user_id,'Вы не можете разжаловать этого пользователя')
@@ -401,23 +211,23 @@ for event in LONGPOLL.listen():
                                              'hash': response['hash']})[0]
                     photo_info = 'photo{}_{}'.format(saved_photo['owner_id'], saved_photo['id'])
                     VK.method('messages.send', {'user_id': event.user_id, 'random_id': get_random_id(),
-                                                'attachment': photo_info})
+                                                'attachment': photo_info,'keyboard':get_main_menu_keyboard(event.user_id)})
 
                 elif (request == "Обновить замены")and(get_admin_level(event.user_id)>0):
                     composite_req_dict[event.user_id]={'request_id': 'refresh_changes_1'}
-                    write_msg(event.user_id,'Отправте фото',menu_button)
+                    write_msg(event.user_id,'Отправте фото',keyboards.menu_button)
 
                 elif request == 'Начать':
-                    keyboard_json=regular_keyboard
+                    keyboard_json=keyboards.regular_keyboard
                     greeting='Привет!\nЯ - ЧЧЧ-бот\nЯ умею присылать замены прямо в лс! Для этого, просто нажми кнопку \"Замены\"'
                     hub(event.user_id,greeting)
 
                 elif request == 'clear':
-                    write_msg(event.user_id,'Очищено',empty_keyboad)
+                    write_msg(event.user_id,'Очищено',keyboards.empty_keyboad)
 
                 elif (request == 'Добавить админа')and(get_admin_level(event.user_id)>1):
                     composite_req_dict[event.user_id]={'request_id':'add_admin_1'}
-                    write_msg(event.user_id,'Отправте ссылку на нового админа',menu_button)
+                    write_msg(event.user_id,'Отправте ссылку на нового админа',keyboards.menu_button)
 
                 elif (request == 'Разжаловать админа')and(get_admin_level(event.user_id)>1):
                     cursor.execute("SELECT * FROM admins")
@@ -425,11 +235,11 @@ for event in LONGPOLL.listen():
                     mes='Выберите админа, которого вы хотите разжаловать. Для этого отправте номер админа, указаный слева от его имени.\n\n'
                     for i in range(len(a)):
                         mes += str(i+1)+': ' + '[id'+str(a[i][0])+'|'+a[i][2]+']\n'
-                    write_msg(event.user_id,mes,menu_button)
+                    write_msg(event.user_id,mes,keyboards.menu_button)
                     composite_req_dict[event.user_id] = {'request_id':'delete_admin_1','data':a}
 
                 elif request  == 'Календарь учебного года':
-                    write_msg(event.user_id, 'Выбери время года', seasons)
+                    write_msg(event.user_id, 'Выбери время года', keyboards.seasons)
                     composite_req_dict[event.user_id] = {'request_id': 'calendar'}
 
                 else:
