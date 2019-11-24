@@ -25,14 +25,29 @@ VK = vk_api.VkApi(token=TOKEN)
 
 LONGPOLL = VkLongPoll(VK)
 
-logging.basicConfig(filename="bot.log", level=logging.INFO)
-logger = logging.getLogger("logger")
+
+
 
 p = os.path.abspath('database')
 conn = sqlite3.connect(p)
 cursor = conn.cursor()
 
 composite_req_dict = {}
+
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+
+
+def setup_logger(name, log_file, level=logging.INFO,filemode='a'):
+    """To setup as many loggers as you want"""
+
+    handler = logging.FileHandler(log_file,filemode)
+    handler.setFormatter(formatter)
+
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    logger.addHandler(handler)
+
+    return logger
 
 def write_msg(user_id, message,keyboard=keyboards.regular_keyboard):
     '''
@@ -71,14 +86,54 @@ def hub(user_id, message):
     elif lvl >=2:
         write_msg(user_id, message, keyboards.admin_keyboard_2lvl)
 
-logger.log(logging.INFO,'Start: '+time.ctime())
+logger = setup_logger('info_and_error_logger', 'bot.log')
+msg_logger = setup_logger('messages_logger', 'msgs.log')
+time_logger=setup_logger('time_logger','time.log')
 
+logger.info('Start')
+f = open('stat.txt', 'r')
+try:
+    current_day = int(f.read().split()[-6].split('.')[0])+1
+except IndexError:
+    f.close()
+    f=open('stat.txt', 'w')
+    f.write(str('//////////////////////////////////////////////////\nINITIAL '+ time.strftime('%d.%m.%Y',time.localtime(time.time()-86400))+': '+'0'+'\nЗа всё время: '+'0'+'\n'))
+    current_day=0
+f.close()
 for event in LONGPOLL.listen():
+
     try:
         if event.type == VkEventType.MESSAGE_NEW:
             if event.to_me:
+                exec_start=time.process_time()
+
+                if current_day != int(time.strftime('%d')):
+                    f = open('stat.txt', 'r+') #TODO Обнулить счётчик перед релизом
+                    total_mes=int(f.read().split()[-1])
+
+                    temp_f = open('today_stat.txt', 'r+')
+                    try:
+                        mes_counter = int(temp_f.read())
+                    except ValueError:
+                        mes_counter=0
+                    temp_f.seek(0)
+                    temp_f.write('1')
+                    temp_f.truncate()
+                    temp_f.close()
+                    report=str('//////////////////////////////////////////////////\nСтатистика за '+ time.strftime('%d.%m.%Y',time.localtime(time.time()-86400))+': '+str(mes_counter)+'\nЗа всё время: '+str(total_mes+mes_counter)+'\n')
+                    f.write(report)
+                    f.close()
+                    current_day = int(time.strftime('%d'))
+                else:
+                    f = open('today_stat.txt', 'r+')
+                    mes_counter = int(f.read())
+                    f.seek(0)
+                    f.write(str(mes_counter + 1))
+                    f.truncate()
+                    f.close()
                 msg = VK.method('messages.getById', {'message_ids': event.message_id})
                 request = event.text
+                msg_logger.info(msg)
                 if 'payload' in msg['items'][0]:
                     payload=json.loads(msg['items'][0]['payload'])
                     if payload['command']=='start':
@@ -252,7 +307,8 @@ for event in LONGPOLL.listen():
                             "можно связаться, если у вас остались вопросы.")
                         else:
                             hub(event.user_id, "Не понял вашего ответа...")
-
+                    exec_stop=time.process_time()
+                    time_logger.info('Command: '+event.text+'. Duration: '+str(exec_stop-exec_start))
     except Exception:
         logger.exception('Error')
-logger.log(logging.INFO,'Finish: '+time.ctime())
+logger.info('Finish')
