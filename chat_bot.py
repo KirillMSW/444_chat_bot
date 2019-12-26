@@ -92,7 +92,7 @@ time_logger=setup_logger('time_logger','time.log')
 
 logger.info('Start')
 f = open('stat.txt', 'r')
-try:
+try: #TODO адекватная реация на отсутствие файла
     current_day = int(f.read().split()[-6].split('.')[0])+1
 except IndexError:
     f.close()
@@ -306,7 +306,8 @@ for event in LONGPOLL.listen():
                             "функцией \"Предложить новость\".\nТам же вы можете найти контакты админов, с которыми " 
                             "можно связаться, если у вас остались вопросы.")
                         else:
-                            hub(event.user_id, "Не понял вашего ответа...")
+                            hub(event.user_id, "Мой искусственный интеллект не знает что на это ответить😔")
+
                     exec_stop=time.process_time()
                     time_logger.info('Command: '+event.text+'. Duration: '+str(exec_stop-exec_start))
     except Exception:
