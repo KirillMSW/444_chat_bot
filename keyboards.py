@@ -217,34 +217,6 @@ parallels=json.dumps({
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "1"
-                                },
-                                "color": "primary"
-                            },
-                            {
-                                "action": {
-                                "type": "text",
-                                "label": "2"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "3"
-                                },
-                                "color": "primary"
-                            },
-                            {
-                                "action": {
-                                "type": "text",
-                                "label": "4"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
                                 "label": "5"
                                 },
                                 "color": "primary"
@@ -300,60 +272,6 @@ parallels=json.dumps({
                             }]
                             ]},ensure_ascii=False)
 
-parallel_1=json.dumps({
-                            "one_time": False,
-                            "buttons": [
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "11А"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "11Б"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "11В"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "11Г"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "11Д"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "11Э"
-                                },
-                                "color": "primary"
-                            }],
-                            [{
-                                "action": {
-                                "type": "text",
-                                "label": "Главное меню"
-                                },
-                                "color": "secondary"
-                            }]
-                            ]},ensure_ascii=False)
-
 parallel_11=json.dumps({
                             "one_time": False,
                             "buttons": [
@@ -363,15 +281,15 @@ parallel_11=json.dumps({
                                 "label": "11А"
                                 },
                                 "color": "primary"
-                            }],
-                            [{
+                            },
+                            {
                                 "action": {
                                 "type": "text",
                                 "label": "11Б"
                                 },
                                 "color": "primary"
-                            }],
-                            [{
+                            },
+                            {
                                 "action": {
                                 "type": "text",
                                 "label": "11В"
@@ -384,15 +302,15 @@ parallel_11=json.dumps({
                                 "label": "11Г"
                                 },
                                 "color": "primary"
-                            }],
-                            [{
+                            },
+                            {
                                 "action": {
                                 "type": "text",
                                 "label": "11Д"
                                 },
                                 "color": "primary"
-                            }],
-                            [{
+                            },
+                            {
                                 "action": {
                                 "type": "text",
                                 "label": "11Э"
