@@ -18,6 +18,13 @@ regular_keyboard=json.dumps({
                                 "label": "Календарь учебного года"
                                 },
                                 "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Расписание уроков"
+                                },
+                                "color": "primary"
                             }]
                             ]},ensure_ascii=False)
 
@@ -35,6 +42,13 @@ admin_keyboard_1lvl=json.dumps({
                                 "action": {
                                 "type": "text",
                                 "label": "Календарь учебного года"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Расписание уроков"
                                 },
                                 "color": "primary"
                             }],
@@ -61,6 +75,13 @@ admin_keyboard_2lvl=json.dumps({
                                 "action": {
                                 "type": "text",
                                 "label": "Календарь учебного года"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Расписание уроков"
                                 },
                                 "color": "primary"
                             }],
@@ -190,3 +211,199 @@ seasons=json.dumps({
                             }]
                             ]},ensure_ascii=False)
 
+parallels=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "1"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "2"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "3"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "4"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "5"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "6"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "7"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "8"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "9"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "10"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)
+
+parallel_1=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11А"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11Б"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11В"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11Г"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11Д"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11Э"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)
+
+parallel_11=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11А"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11Б"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11В"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11Г"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11Д"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11Э"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)

@@ -262,6 +262,27 @@ for event in LONGPOLL.listen():
                                 VK.method('messages.send', {'user_id': event.user_id, 'random_id': get_random_id(),
                                                             'attachment': photo_info,'keyboard':get_main_menu_keyboard(event.user_id)})
 
+                        elif previous_req['request_id']=='timetable_1':
+                            if request.isdigit() and len(request)<=2:
+                                try:
+                                    write_msg(event.user_id, 'Выбери класс', eval('keyboards.parallel_'+request))
+                                    composite_req_dict[event.user_id] = {'request_id': 'timetable_2'}
+                                except AttributeError:
+                                    hub(event.user_id,'Параллель не существует еще не добавлена')
+                            else:
+                                hub(event.user_id,' Неверная команда')
+
+                        elif previous_req['request_id'] == 'timetable_2':
+                            try:
+                                if request[1].isdigit():
+                                    form=request[:2]
+                                else:
+                                    form =request[:1]
+                                timetable=open('timetables/'+form+'/'+request+'.txt','r').read()
+                                hub(event.user_id,timetable)
+                            except FileNotFoundError:
+                                hub(event.user_id,'Класс не сущесвует или еще не добавлен')
+
                     elif request == "Замены":
                         upload_url = VK.method('photos.getMessagesUploadServer')
                         photo_to_upload = open('schedule_changes.jpg', 'rb')
@@ -298,6 +319,10 @@ for event in LONGPOLL.listen():
                         write_msg(event.user_id, 'Выбери время года', keyboards.seasons)
                         composite_req_dict[event.user_id] = {'request_id': 'calendar'}
 
+                    elif request  == 'Расписание уроков':
+                        write_msg(event.user_id,'Выбери параллель',keyboards.parallels)
+                        composite_req_dict[event.user_id] = {'request_id': 'timetable_1'}
+
                     else:
                         if (VK.method('messages.getHistory', {'user_id': event.user_id})['count']==1):
                             hub(event.user_id, "Здравствуйте!\nЭто сообщение отправлено автоматически нашим замечательным "
@@ -306,7 +331,7 @@ for event in LONGPOLL.listen():
                             "функцией \"Предложить новость\".\nТам же вы можете найти контакты админов, с которыми " 
                             "можно связаться, если у вас остались вопросы.")
                         else:
-                            hub(event.user_id, "Мой искусственный интеллект не знает, что на это ответить😔")
+                            hub(event.user_id, "Мой искусственный интеллект не знает, что на это ответить😔️")
 
                     exec_stop=time.process_time()
                     time_logger.info('Command: '+event.text+'. Duration: '+str(exec_stop-exec_start))
