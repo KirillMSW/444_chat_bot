@@ -138,7 +138,7 @@ for event in LONGPOLL.listen():
                     payload=json.loads(msg['items'][0]['payload'])
                     if payload['command']=='start':
                         keyboard_json = keyboards.regular_keyboard
-                        greeting = 'Привет!\nЯ - ЧЧЧ-бот\nЯ умею присылать замены прямо в лс! Для этого, просто нажми кнопку \"Замены\"'
+                        greeting = 'Привет!\nЯ - ЧЧЧ-бот\nЯ умею присылать замены и расписание прямо в лс! Для этого, просто нажми кнопку нужной тебе функции'
                         hub(event.user_id, greeting)
 
                 else:
