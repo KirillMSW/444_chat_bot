@@ -150,7 +150,15 @@ for event in LONGPOLL.listen():
                         if previous_req['request_id'] == 'refresh_changes_1':
                             if (msg['items'][0]['attachments']):
                                 if (msg['items'][0]['attachments'][0]['type'] == 'photo'):
-                                    photo_url = (msg['items'][0]['attachments'][0]['photo']['sizes'][4]['url'])
+                                    sizes_dict=msg['items'][0]['attachments'][0]['photo']['sizes']
+                                    max_size=0
+                                    max_size_id=0
+                                    for i in range(len(sizes_dict)):
+                                        curr_size=sizes_dict[i]['width']*sizes_dict[i]['height']
+                                        if curr_size>max_size:
+                                            max_size = curr_size
+                                            max_size_id = i
+                                    photo_url = (msg['items'][0]['attachments'][0]['photo']['sizes'][max_size_id]['url'])
                                     req = urllib.request.urlopen(photo_url)
                                     arr = numpy.asarray(bytearray(req.read()), dtype=numpy.uint8)
                                     img = cv2.imdecode(arr, -1)
@@ -265,7 +273,21 @@ for event in LONGPOLL.listen():
                         elif previous_req['request_id']=='timetable_1':
                             if request.isdigit() and len(request)<=2:
                                 try:
-                                    write_msg(event.user_id, 'Выбери класс', eval('keyboards.parallel_'+request))
+                                    if request=='5':
+                                        form_keyboard=keyboards.parallel_5
+                                    elif request == '6':
+                                        form_keyboard = keyboards.parallel_6
+                                    elif request == '7':
+                                        form_keyboard = keyboards.parallel_7
+                                    elif request == '8':
+                                        form_keyboard = keyboards.parallel_8
+                                    elif request == '9':
+                                        form_keyboard = keyboards.parallel_9
+                                    elif request == '10':
+                                        form_keyboard = keyboards.parallel_10
+                                    elif request == '11':
+                                        form_keyboard = keyboards.parallel_11
+                                    write_msg(event.user_id, 'Выбери класс', form_keyboard)
                                     composite_req_dict[event.user_id] = {'request_id': 'timetable_2'}
                                 except AttributeError:
                                     hub(event.user_id,'Параллель не существует еще не добавлена')
