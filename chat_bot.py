@@ -290,7 +290,12 @@ for event in LONGPOLL.listen():
                                     write_msg(event.user_id, 'Выбери класс', form_keyboard)
                                     composite_req_dict[event.user_id] = {'request_id': 'timetable_2'}
                                 except AttributeError:
-                                    hub(event.user_id,'Параллель не существует еще не добавлена')
+                                    hub(event.user_id,'Параллель не существует или еще не добавлена')
+                            elif request =='Сообщить об ошибке в расписании':
+                                write_msg(event.user_id,'Опиши ошибку: в расписании какого класса, в какой день, в каких '
+                                'уроках она содержится, и в чем она состоит. Наши администраторы постараются '
+                                'исправить ее как можно скорее.',keyboards.menu_button)
+                                composite_req_dict[event.user_id] = {'request_id': 'TimetableError'}
                             else:
                                 hub(event.user_id,' Неверная команда')
 
@@ -304,6 +309,19 @@ for event in LONGPOLL.listen():
                                 hub(event.user_id,timetable)
                             except FileNotFoundError:
                                 hub(event.user_id,'Класс не сущесвует или еще не добавлен')
+
+                        elif previous_req['request_id'] == 'TimetableError':
+                            hub(event.user_id,'Большое спасибо за внимательность. Скоро все будет исправлено.')
+                            cursor.execute("SELECT * FROM admins")
+                            a = cursor.fetchall()
+                            max_admin_level,max_admin_level_id=0,0
+                            for i in range(len(a)):
+                                if a[i][1] > max_admin_level:
+                                    max_admin_level=a[i][1]
+                                    max_admin_level_id=a[i][0]
+                            VK.method('messages.send', {'user_id': str(max_admin_level_id), 'random_id': get_random_id(),
+                                                        'message': 'В расписании ошибка, разберись', 'forward_messages':event.message_id})
+
 
                     elif request == "Замены":
                         upload_url = VK.method('photos.getMessagesUploadServer')

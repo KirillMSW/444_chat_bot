@@ -269,6 +269,13 @@ parallels=json.dumps({
                                 "label": "Главное меню"
                                 },
                                 "color": "secondary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Сообщить об ошибке в расписании"
+                                },
+                                "color": "negative"
                             }]
                             ]},ensure_ascii=False)
 
