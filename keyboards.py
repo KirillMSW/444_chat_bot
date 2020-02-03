@@ -279,6 +279,364 @@ parallels=json.dumps({
                             }]
                             ]},ensure_ascii=False)
 
+parallel_5=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "5А"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "5Б"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "5В"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "5Г"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "5М"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "5Н"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "5ТЛ"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "5Э"
+                                },
+                                "color": "primary"
+                            }
+                            ],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)
+
+parallel_6=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "6А"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "6Б"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "6В"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "6Г"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "6М"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "6Н"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "6ТЛ"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "6Э"
+                                },
+                                "color": "primary"
+                            }
+                            ],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)
+
+parallel_7=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "7А"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "7Б"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "7М"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "7Н"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "7О"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "7ТЛ"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "7Э"
+                                },
+                                "color": "primary"
+                            }
+                            ],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)
+
+parallel_8=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "8А"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "8Б"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "8В"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "8Г"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "8М"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "8Н"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "8Э"
+                                },
+                                "color": "primary"
+                            }
+                            ],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)
+
+parallel_9=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "9А"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "9Б"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "9В"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "9Н"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "9Э"
+                                },
+                                "color": "primary"
+                            }
+                            ],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)
+
+parallel_10=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "10А"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "10Б"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "10В"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "10Г"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "10Д"
+                                },
+                                "color": "primary"
+                            }
+                            ],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)
+
 parallel_11=json.dumps({
                             "one_time": False,
                             "buttons": [
