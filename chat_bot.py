@@ -141,6 +141,22 @@ for event in LONGPOLL.listen():
                         greeting = 'Привет!\nЯ - ЧЧЧ-бот\nЯ умею присылать замены и расписание прямо в лс! Для этого, просто нажми кнопку нужной тебе функции'
                         hub(event.user_id, greeting)
 
+                    elif payload['command']=='timetable_2':
+                        try:
+                            if payload['button'][1].isdigit():
+                                form = request[:2]
+                                form_letter = payload['button'][2:len(payload['button'])]
+                            else:
+                                form = request[:1]
+                                form_letter = payload['button'][1:len(payload['button'])]
+                            timetable = open('timetables/' + form + '/' + form+form_letter + '.txt', 'r').read()
+                            hub(event.user_id, timetable)
+                        except FileNotFoundError:
+                            hub(event.user_id, 'Класс не сущесвует или еще не добавлен')
+                    else:
+                        hub(event.user_id, 'Неверная команда')
+
+
                 else:
                     if event.user_id in composite_req_dict.keys():
                         previous_req=composite_req_dict.pop(event.user_id)
@@ -288,7 +304,6 @@ for event in LONGPOLL.listen():
                                     elif request == '11':
                                         form_keyboard = keyboards.parallel_11
                                     write_msg(event.user_id, 'Выбери класс', form_keyboard)
-                                    composite_req_dict[event.user_id] = {'request_id': 'timetable_2'}
                                 except AttributeError:
                                     hub(event.user_id,'Параллель не существует или еще не добавлена')
                             elif request =='Сообщить об ошибке в расписании':
@@ -298,17 +313,6 @@ for event in LONGPOLL.listen():
                                 composite_req_dict[event.user_id] = {'request_id': 'TimetableError'}
                             else:
                                 hub(event.user_id,' Неверная команда')
-
-                        elif previous_req['request_id'] == 'timetable_2':
-                            try:
-                                if request[1].isdigit():
-                                    form=request[:2]
-                                else:
-                                    form =request[:1]
-                                timetable=open('timetables/'+form+'/'+request+'.txt','r').read()
-                                hub(event.user_id,timetable)
-                            except FileNotFoundError:
-                                hub(event.user_id,'Класс не сущесвует или еще не добавлен')
 
                         elif previous_req['request_id'] == 'TimetableError':
                             hub(event.user_id,'Большое спасибо за внимательность. Скоро все будет исправлено.')

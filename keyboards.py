@@ -285,56 +285,64 @@ parallel_5=json.dumps({
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "5А"
+                                "label": "5А",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"5А\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "5Б"
+                                "label": "5Б",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"5Б\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "5В"
+                                "label": "5В",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"5В\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "5Г"
+                                "label": "5Г",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"5Г\"}"
                                 },
                                 "color": "primary"
                             }],
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "5М"
+                                "label": "5М",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"5М\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "5Н"
+                                "label": "5Н",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"5Н\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "5ТЛ"
+                                "label": "5ТЛ",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"5ТЛ\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "5Э"
+                                "label": "5Э",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"5Э\"}"
                                 },
                                 "color": "primary"
                             }
@@ -354,56 +362,64 @@ parallel_6=json.dumps({
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "6А"
+                                "label": "6А",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"6А\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "6Б"
+                                "label": "6Б",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"6Б\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "6В"
+                                "label": "6В",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"6В\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "6Г"
+                                "label": "6Г",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"6Г\"}"
                                 },
                                 "color": "primary"
                             }],
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "6М"
+                                "label": "6М",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"6М\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "6Н"
+                                "label": "6Н",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"6Н\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "6ТЛ"
+                                "label": "6ТЛ",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"6ТЛ\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "6Э"
+                                "label": "6Э",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"6Э\"}"
                                 },
                                 "color": "primary"
                             }
@@ -423,49 +439,56 @@ parallel_7=json.dumps({
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "7А"
+                                "label": "7А",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"7А\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "7Б"
+                                "label": "7Б",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"7Б\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "7М"
+                                "label": "7М",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"7М\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "7Н"
+                                "label": "7Н",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"7Н\"}"
                                 },
                                 "color": "primary"
                             }],
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "7О"
+                                "label": "7О",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"7О\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "7ТЛ"
+                                "label": "7ТЛ",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"7ТЛ\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "7Э"
+                                "label": "7Э",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"7Э\"}"
                                 },
                                 "color": "primary"
                             }
@@ -485,49 +508,56 @@ parallel_8=json.dumps({
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "8А"
+                                "label": "8А",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"8А\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "8Б"
+                                "label": "8Б",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"8Б\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "8В"
+                                "label": "8В",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"8В\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "8Г"
+                                "label": "8Г",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"8Г\"}"
                                 },
                                 "color": "primary"
                             }],
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "8М"
+                                "label": "8М",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"8М\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "8Н"
+                                "label": "8Н",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"8Н\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "8Э"
+                                "label": "8Э",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"8Э\"}"
                                 },
                                 "color": "primary"
                             }
@@ -547,35 +577,40 @@ parallel_9=json.dumps({
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "9А"
+                                "label": "9А",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"9А\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "9Б"
+                                "label": "9Б",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"9Б\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "9В"
+                                "label": "9В",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"9В\"}"
                                 },
                                 "color": "primary"
                             }],
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "9Н"
+                                "label": "9Н",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"9Н\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "9Э"
+                                "label": "9Э",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"9Э\"}"
                                 },
                                 "color": "primary"
                             }
@@ -595,35 +630,40 @@ parallel_10=json.dumps({
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "10А"
+                                "label": "10А",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"10А\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "10Б"
+                                "label": "10Б",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"10Б\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "10В"
+                                "label": "10В",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"10В\"}"
                                 },
                                 "color": "primary"
                             }],
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "10Г"
+                                "label": "10Г",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"10Г\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "10Д"
+                                "label": "10Д",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"10Д\"}"
                                 },
                                 "color": "primary"
                             }
@@ -643,42 +683,48 @@ parallel_11=json.dumps({
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "11А"
+                                "label": "11А",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"11А\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "11Б"
+                                "label": "11Б",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"11Б\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "11В"
+                                "label": "11В",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"11В\"}"
                                 },
                                 "color": "primary"
                             }],
                             [{
                                 "action": {
                                 "type": "text",
-                                "label": "11Г"
+                                "label": "11Г",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"11Г\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "11Д"
+                                "label": "11Д",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"11Д\"}"
                                 },
                                 "color": "primary"
                             },
                             {
                                 "action": {
                                 "type": "text",
-                                "label": "11Э"
+                                "label": "11Э",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"11Э\"}"
                                 },
                                 "color": "primary"
                             }],
