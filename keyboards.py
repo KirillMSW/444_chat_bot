@@ -2,7 +2,7 @@ import json
 
 empty_keyboad = json.dumps({"buttons":[],"one_time":True})
 
-regular_keyboard=json.dumps({
+regular_keyboard_pos_ch=json.dumps({
                             "one_time": False,
                             "buttons": [
                             [{
@@ -25,10 +25,50 @@ regular_keyboard=json.dumps({
                                 "label": "Расписание уроков"
                                 },
                                 "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Подписка на замены"
+                                },
+                                "color": "positive"
                             }]
                             ]},ensure_ascii=False)
 
-admin_keyboard_1lvl=json.dumps({
+regular_keyboard_neg_ch=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Замены"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Календарь учебного года"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Расписание уроков"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Подписка на замены"
+                                },
+                                "color": "negative"
+                            }]
+                            ]},ensure_ascii=False)
+
+admin_keyboard_1lvl_pos_ch=json.dumps({
                             "one_time": False,
                             "buttons": [
                             [{
@@ -58,10 +98,17 @@ admin_keyboard_1lvl=json.dumps({
                                 "label": "Обновить замены"
                                 },
                                 "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Подписка на замены"
+                                },
+                                "color": "positive"
                             }]
                             ]},ensure_ascii=False)
 
-admin_keyboard_2lvl=json.dumps({
+admin_keyboard_1lvl_neg_ch=json.dumps({
                             "one_time": False,
                             "buttons": [
                             [{
@@ -91,6 +138,107 @@ admin_keyboard_2lvl=json.dumps({
                                 "label": "Обновить замены"
                                 },
                                 "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Подписка на замены"
+                                },
+                                "color": "negative"
+                            }]
+                            ]},ensure_ascii=False)
+
+admin_keyboard_2lvl_pos_ch=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Замены"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Календарь учебного года"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Расписание уроков"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Обновить замены"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Подписка на замены"
+                                },
+                                "color": "positive"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Добавить админа"
+                                },
+                                "color": "positive"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Разжаловать админа"
+                                },
+                                "color": "negative"
+                            }]
+                            ]},ensure_ascii=False)
+
+admin_keyboard_2lvl_neg_ch=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Замены"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Календарь учебного года"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Расписание уроков"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Обновить замены"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Подписка на замены"
+                                },
+                                "color": "negative"
                             }],
                             [{
                                 "action": {
@@ -727,6 +875,104 @@ parallel_11=json.dumps({
                                 "payload": "{\"command\": \"timetable_2\",\"button\": \"11Э\"}"
                                 },
                                 "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)
+
+parallel_11=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11А",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"11А\"}"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "11Б",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"11Б\"}"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "11В",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"11В\"}"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "11Г",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"11Г\"}"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "11Д",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"11Д\"}"
+                                },
+                                "color": "primary"
+                            },
+                            {
+                                "action": {
+                                "type": "text",
+                                "label": "11Э",
+                                "payload": "{\"command\": \"timetable_2\",\"button\": \"11Э\"}"
+                                },
+                                "color": "primary"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)
+
+enable_subscription=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Подписаться на обновления замен"
+                                },
+                                "color": "positive"
+                            }],
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Главное меню"
+                                },
+                                "color": "secondary"
+                            }]
+                            ]},ensure_ascii=False)
+
+disable_subscription=json.dumps({
+                            "one_time": False,
+                            "buttons": [
+                            [{
+                                "action": {
+                                "type": "text",
+                                "label": "Отписаться от обновлений замен"
+                                },
+                                "color": "negative"
                             }],
                             [{
                                 "action": {

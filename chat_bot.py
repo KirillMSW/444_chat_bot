@@ -49,7 +49,7 @@ def setup_logger(name, log_file, level=logging.INFO,filemode='a'):
 
     return logger
 
-def write_msg(user_id, message,keyboard=keyboards.regular_keyboard):
+def write_msg(user_id, message,keyboard=keyboards.regular_keyboard_neg_ch):
     '''
     Sends text message to user
     :param user_id:
@@ -70,21 +70,28 @@ def get_admin_level(user_id):
 
 def get_main_menu_keyboard(user_id):
     lvl = get_admin_level(user_id)
-    if lvl == 0:
-        return keyboards.regular_keyboard
-    elif lvl == 1:
-        return keyboards.admin_keyboard_1lvl
-    elif lvl >= 2:
-        return keyboards.admin_keyboard_2lvl
+    cursor.execute("SELECT sub_id FROM subscribers WHERE sub_id=(?)", (user_id,))
+    if cursor.fetchone()==None:
+        sub_keyboard=0
+    else:
+        sub_keyboard = 1
+    if sub_keyboard:
+        if lvl == 0:
+            return keyboards.regular_keyboard_pos_ch
+        elif lvl == 1:
+            return keyboards.admin_keyboard_1lvl_pos_ch
+        elif lvl >= 2:
+            return keyboards.admin_keyboard_2lvl_pos_ch
+    else:
+        if lvl == 0:
+            return keyboards.regular_keyboard_neg_ch
+        elif lvl == 1:
+            return keyboards.admin_keyboard_1lvl_neg_ch
+        elif lvl >= 2:
+            return keyboards.admin_keyboard_2lvl_neg_ch
 
 def hub(user_id, message):
-    lvl=get_admin_level(user_id)
-    if lvl == 0:
-        write_msg(user_id,message,keyboards.regular_keyboard)
-    elif lvl == 1:
-        write_msg(user_id,message,keyboards.admin_keyboard_1lvl)
-    elif lvl >=2:
-        write_msg(user_id, message, keyboards.admin_keyboard_2lvl)
+    write_msg(user_id,message,get_main_menu_keyboard(user_id))
 
 logger = setup_logger('info_and_error_logger', 'bot.log')
 msg_logger = setup_logger('messages_logger', 'msgs.log')
@@ -137,7 +144,7 @@ for event in LONGPOLL.listen():
                 if 'payload' in msg['items'][0]:
                     payload=json.loads(msg['items'][0]['payload'])
                     if payload['command']=='start':
-                        keyboard_json = keyboards.regular_keyboard
+                        keyboard_json = get_main_menu_keyboard(event.user_id)
                         greeting = 'Привет!\nЯ - ЧЧЧ-бот\nЯ умею присылать замены и расписание прямо в лс! Для этого, просто нажми кнопку нужной тебе функции'
                         hub(event.user_id, greeting)
 
@@ -155,7 +162,6 @@ for event in LONGPOLL.listen():
                             hub(event.user_id, 'Класс не сущесвует или еще не добавлен')
                     else:
                         hub(event.user_id, 'Неверная команда')
-
 
                 else:
                     if event.user_id in composite_req_dict.keys():
@@ -178,12 +184,51 @@ for event in LONGPOLL.listen():
                                     req = urllib.request.urlopen(photo_url)
                                     arr = numpy.asarray(bytearray(req.read()), dtype=numpy.uint8)
                                     img = cv2.imdecode(arr, -1)
-                                    cv2.imwrite('schedule_changes.jpg', img)
-                                    hub(event.user_id, 'Замены успешно обновлены')
+                                    cv2.imwrite('schedule_changes_temp.jpg', img)
+                                    upload_url = VK.method('photos.getMessagesUploadServer')
+                                    photo_to_upload = open('schedule_changes_temp.jpg', 'rb')
+                                    response = requests.post(upload_url['upload_url'],
+                                                             files={'photo': photo_to_upload}).json()
+                                    saved_photo = VK.method('photos.saveMessagesPhoto',
+                                                            {'photo': response['photo'], 'server': response['server'],
+                                                             'hash': response['hash']})[0]
+                                    photo_info = 'photo{}_{}'.format(saved_photo['owner_id'], saved_photo['id'])
+                                    VK.method('messages.send', {'user_id': event.user_id, 'random_id': get_random_id(),
+                                                                'attachment': photo_info, 'message': 'Обновить замены данной картинкой?',
+                                                                'keyboard': keyboards.yes_or_no_keyboard})
+                                    composite_req_dict[event.user_id] = {'request_id': 'refresh_changes_2'}
+
                                 else:
                                     hub(event.user_id, "Вы не прикрепили фото")
                             else:
                                 hub(event.user_id, "Вы не прикрепили фото")
+
+                        elif previous_req['request_id'] == 'refresh_changes_2':
+                            if request=='Да':
+                                os.remove('schedule_changes.jpg')
+                                os.rename('schedule_changes_temp.jpg','schedule_changes.jpg')
+                                hub(event.user_id,'Замены успешно обновлены')
+                                cursor.execute("SELECT sub_id FROM subscribers")
+                                subs=cursor.fetchall()
+                                upload_url = VK.method('photos.getMessagesUploadServer')
+                                photo_to_upload = open('schedule_changes.jpg', 'rb')
+                                response = requests.post(upload_url['upload_url'],
+                                                         files={'photo': photo_to_upload}).json()
+                                saved_photo = VK.method('photos.saveMessagesPhoto',
+                                                        {'photo': response['photo'], 'server': response['server'],
+                                                         'hash': response['hash']})[0]
+                                photo_info = 'photo{}_{}'.format(saved_photo['owner_id'], saved_photo['id'])
+                                for i in subs:
+                                    try:
+                                        VK.method('messages.send', {'user_id': i[0], 'random_id': get_random_id(),
+                                                                    'attachment': photo_info,
+                                                                    'message': 'Лови свежие замены',
+                                                                    'keyboard': get_main_menu_keyboard(i[0])})
+                                    except Exception:
+                                        logger.exception('Error')
+                            else:
+                                os.remove('schedule_changes_temp.jpg')
+                                hub(event.user_id, 'Отмена')
 
                         elif previous_req['request_id'] == 'add_admin_1':
                             try:
@@ -212,12 +257,12 @@ for event in LONGPOLL.listen():
                                 if request == 'Обновлять замены':
                                     write_msg(previous_req_data,
                                               'Теперь вы можете обновлять замены',
-                                              keyboards.admin_keyboard_1lvl)
+                                              get_main_menu_keyboard(event.user_id))
 
                                 elif request == 'Обновлять замены, управлять админами':
                                     write_msg(previous_req_data,
                                               'Теперь вы можете обновлять замены, а так же назначать и разжаловать админов',
-                                              keyboards.admin_keyboard_2lvl)
+                                              get_main_menu_keyboard(event.user_id))
                                 conn.commit()
                                 hub(event.user_id,'Успешно')
 
@@ -250,7 +295,7 @@ for event in LONGPOLL.listen():
                                     if get_admin_level(event.user_id)>= get_admin_level(previous_req['data']):
                                         cursor.execute("DELETE FROM admins WHERE user_id=(?)",(previous_req['data'],))
                                         conn.commit()
-                                        write_msg(previous_req['data'],'Вы больше не админ',keyboards.regular_keyboard)
+                                        write_msg(previous_req['data'],'Вы больше не админ',get_main_menu_keyboard(event.user_id))
                                         hub(event.user_id,'Админ успешно разжалован')
                                     else:
                                         hub(event.user_id,'Вы не можете разжаловать этого пользователя')
@@ -326,6 +371,20 @@ for event in LONGPOLL.listen():
                             VK.method('messages.send', {'user_id': str(max_admin_level_id), 'random_id': get_random_id(),
                                                         'message': 'В расписании ошибка, разберись', 'forward_messages':event.message_id})
 
+                        elif previous_req['request_id']=='user_sub_1':
+                            if request=='Подписаться на обновления замен':
+                                cursor.execute("INSERT INTO subscribers(sub_id) VALUES (?)", (event.user_id,))
+                                hub(event.user_id,'Теперь ты подписан на обновления замен')
+
+                            elif request=='Отписаться от обновлений замен':
+                                cursor.execute("DELETE FROM subscribers WHERE sub_id=(?)", (event.user_id,))
+                                hub(event.user_id,'Подписка на обновления замен отменена')
+
+
+                            else:
+                                hub(event.user_id,'Неверная команда')
+                            conn.commit()
+
 
                     elif request == "Замены":
                         upload_url = VK.method('photos.getMessagesUploadServer')
@@ -341,7 +400,7 @@ for event in LONGPOLL.listen():
 
                     elif (request == "Обновить замены")and(get_admin_level(event.user_id)>0):
                         composite_req_dict[event.user_id]={'request_id': 'refresh_changes_1'}
-                        write_msg(event.user_id,'Отправте фото',keyboards.menu_button)
+                        write_msg(event.user_id,'Отправьте фото',keyboards.menu_button)
 
                     elif request == 'clear':
                         write_msg(event.user_id,'Очищено',keyboards.empty_keyboad)
@@ -366,6 +425,15 @@ for event in LONGPOLL.listen():
                     elif request  == 'Расписание уроков':
                         write_msg(event.user_id,'Выбери параллель',keyboards.parallels)
                         composite_req_dict[event.user_id] = {'request_id': 'timetable_1'}
+
+                    elif request  == 'Подписка на замены' or request=='Ы':
+                        cursor.execute("SELECT sub_id FROM subscribers WHERE sub_id=(?)", (event.user_id,))
+                        sub_status=cursor.fetchone()
+                        if sub_status==None:
+                            write_msg(event.user_id, 'Подписка не активна', keyboards.enable_subscription)
+                        else:
+                            write_msg(event.user_id, 'Подписка активна', keyboards.disable_subscription)
+                        composite_req_dict[event.user_id] = {'request_id': 'user_sub_1'}
 
                     else:
                         if (VK.method('messages.getHistory', {'user_id': event.user_id})['count']==1):
