@@ -169,6 +169,7 @@ for event in LONGPOLL.listen():
                         if request == 'Главное меню':
                             hub(event.user_id,'Выход в главное меню')
                             continue
+
                         if previous_req['request_id'] == 'refresh_changes_1':
                             if (msg['items'][0]['attachments']):
                                 if (msg['items'][0]['attachments'][0]['type'] == 'photo'):
@@ -225,7 +226,7 @@ for event in LONGPOLL.listen():
                                                                     'message': 'Лови свежие замены',
                                                                     'keyboard': get_main_menu_keyboard(i[0])})
                                     except Exception:
-                                        logger.exception('Error')
+                                        logger.exception('Не доставлено. ID: '+str(i[0]))
                             else:
                                 os.remove('schedule_changes_temp.jpg')
                                 hub(event.user_id, 'Отмена')
@@ -334,6 +335,7 @@ for event in LONGPOLL.listen():
                         elif previous_req['request_id']=='timetable_1':
                             if request.isdigit() and len(request)<=2:
                                 try:
+                                    form_keyboard=0
                                     if request=='5':
                                         form_keyboard=keyboards.parallel_5
                                     elif request == '6':
@@ -348,7 +350,12 @@ for event in LONGPOLL.listen():
                                         form_keyboard = keyboards.parallel_10
                                     elif request == '11':
                                         form_keyboard = keyboards.parallel_11
-                                    write_msg(event.user_id, 'Выбери класс', form_keyboard)
+
+                                    if form_keyboard!=0:
+                                        write_msg(event.user_id, 'Выбери класс', form_keyboard)
+                                    else:
+                                        hub(event.user_id,'Параллель не существует или еще не добавлена')
+
                                 except AttributeError:
                                     hub(event.user_id,'Параллель не существует или еще не добавлена')
                             elif request =='Сообщить об ошибке в расписании':
@@ -374,7 +381,11 @@ for event in LONGPOLL.listen():
                         elif previous_req['request_id']=='user_sub_1':
                             if request=='Подписаться на обновления замен':
                                 cursor.execute("INSERT INTO subscribers(sub_id) VALUES (?)", (event.user_id,))
-                                hub(event.user_id,'Теперь ты подписан на обновления замен')
+                                sex=VK.method('users.get', {'user_id': event.user_id,'fields':'sex'})[0]['sex']
+                                if sex == 1:
+                                    hub(event.user_id,'Теперь ты подписана на обновления замен')
+                                else:
+                                    hub(event.user_id, 'Теперь ты подписан на обновления замен')
 
                             elif request=='Отписаться от обновлений замен':
                                 cursor.execute("DELETE FROM subscribers WHERE sub_id=(?)", (event.user_id,))
@@ -426,7 +437,7 @@ for event in LONGPOLL.listen():
                         write_msg(event.user_id,'Выбери параллель',keyboards.parallels)
                         composite_req_dict[event.user_id] = {'request_id': 'timetable_1'}
 
-                    elif request  == 'Подписка на замены' or request=='Ы':
+                    elif request  == 'Подписка на замены':
                         cursor.execute("SELECT sub_id FROM subscribers WHERE sub_id=(?)", (event.user_id,))
                         sub_status=cursor.fetchone()
                         if sub_status==None:
